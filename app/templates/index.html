@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<style type="text/css">
+		a, a:link {text-decoration: none;}
+		table, td {margin: 0; padding: 0;}
+		body, div.body_style, p, td {font-size:12px; color: #000000;}
+		b, strong {font-weight: bold;}
+				a {color: #731B79; text-decoration: none;}
+	</style>
+</head>
+
+<body text="#000000" link="#731B79" bgcolor="#ebebeb">
+	<div style="background: #ebebeb; min-height:600px; color: #000000;">
+        
+
+				
+					<table cellspacing="0" cellpadding="0" border="0" bgcolor="#ebebeb" align="center">
+                    <td width="100%" align="center" style="background: #ebebeb;">
+						<tbody>
+						
+							<tr>
+                            <td width="80" valign="top" style="background:#ffffff; padding:20px 220px;">
+							<table align="center">
+							<tbody>
+                            <tr>
+                                <td valign="top" align="center" style="background:#ffffff; font-size: 70px; color: #6A266F; align-content: center;">Notes</td>  
+							</tr>
+                            </tbody>
+                            </table>
+                            </td>
+                            </tr>
+
+                            <tr>
+                            <td width="600" valign="top" align="left" style="background:#ffffff;">
+							<table align="left">
+							<tbody>
+                            <tr>
+                            
+                            <td valign="top" align="center" style="width: 600px; color:#731B79; background: #ffffff;">
+                                {% extends "base.html" %}
+                            </td>
+							</tr>
+                            </tbody>
+                            </table>
+                            </td>
+                            </tr>
+                            
+							<tr>
+							<td width="600" valign="top" style="background:#ffffff; padding:20px 0px;">
+							<table align="left">
+							<tbody>
+                            <tr>
+							<td valign="top" align="left">
+{% block content %}
+	<p>
+      <h1>Add a note</h1>
+	</p>
+	<form action="" method="post" name="post">
+	{{ form.hidden_tag() }}
+  <table>
+          <tr>
+              <td>Your note:</td>
+              <td>{{ form.post(size=40, maxlength=140) }}</td>
+          </tr>
+          <tr>
+              <td></td>
+              <td><input type="submit" value="Add!"></td>
+              <td></td>
+          </tr>
+      </table>
+	</form>
+	<h1>Your notes:</h1>
+	{% for post in posts %}
+		{% include 'post.html' %}
+	{% endfor %}
+	<p>
+ {% if posts.has_prev %}<a href="{{ url_for('index', page=posts.prev_num) }}"><< Newer posts</a>{% else %}<< Newer posts{% endif %} | 
+    {% if posts.has_next %}<a href="{{ url_for('index', page=posts.next_num) }}">Older posts >></a>{% else %}Older posts >>{% endif %}
+</p>
+						
+							</td>
+							</tr>
+                            </tbody>
+							</table>
+                            </td>
+                            </tr>
+                                       
+                            <tr>
+                            <td width="600" valign="top" align="left" style="background:#ffffff;">
+                            <table align="left">
+                            <tbody>
+                            <a href="https://github.com/sarkaaa" target="blank" style="font-weight: bold;">Github</a>
+                            </td>
+                            </tbody>
+                            </table>
+                            </td>
+                            </tr>		
+
+</tbody></td></table>
+</div>
+</body>
+</html>
+{% endblock %}	
