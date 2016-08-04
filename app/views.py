@@ -2,24 +2,22 @@ from flask import Flask, render_template, flash, redirect, session, url_for, req
 from datetime import datetime
 from app import app, db
 from .forms import PostForm
-from .models import User, Post
+from .models import Post
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
 	form = PostForm()
-	user = User()
 	if form.validate_on_submit():
-		post = Post(body=form.post.data, timestamp=datetime.utcnow(), author=user)
+		post = Post(body=form.post.data, timestamp=datetime.utcnow())
 		db.session.add(post)
 		db.session.commit()
 		return redirect(url_for('index'))
 	posts = Post.query.all()
 	return render_template('index.html',
 							title = 'Přehled poznámek',
-							user=user,
 							form=form,
-						   db=db,
+						   	db=db,
 							posts=posts)
 
 @app.route('/add')
@@ -35,5 +33,4 @@ def calendar():
 	return render_template('calendar.html',
 							title = 'Kalendář',
 							user=user)
-
 
