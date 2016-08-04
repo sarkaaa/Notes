@@ -9,7 +9,7 @@ from .models import Post
 def index():
 	form = PostForm()
 	if form.validate_on_submit():
-		post = Post(body=form.post.data, timestamp=datetime.utcnow())
+		post = Post(id=app.id(), body=form.post.data, timestamp=datetime.utcnow())
 		db.session.add(post)
 		db.session.commit()
 		return redirect(url_for('index'))
@@ -17,15 +17,14 @@ def index():
 	return render_template('index.html',
 							title = 'Přehled poznámek',
 							form=form,
-						   	db=db,
 							posts=posts)
 
-@app.route('/add')
-def add():
-	user = {'nickname': 'User'}
-	return render_template('add.html',
+@app.route('/notes')
+def notes():
+	posts = Post.query.all()
+	return render_template('notes.html',
 							title = 'Přidat poznámku',
-							user=user)
+						   posts=posts)
 
 @app.route('/calendar')
 def calendar():
